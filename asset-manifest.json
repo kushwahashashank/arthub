@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ARTHUB/static/css/main.cfe9bc81.css",
-    "main.js": "/ARTHUB/static/js/main.6892dd69.js",
+    "main.css": "/ARTHUB/static/css/main.65e391f9.css",
+    "main.js": "/ARTHUB/static/js/main.a1f686ec.js",
     "static/js/787.561293a9.chunk.js": "/ARTHUB/static/js/787.561293a9.chunk.js",
     "static/media/img4.png": "/ARTHUB/static/media/img4.2145ddf167b57c6a1351.png",
     "static/media/img3.png": "/ARTHUB/static/media/img3.64dc188150b9b264f002.png",
@@ -11,12 +11,12 @@
     "static/media/img5.png": "/ARTHUB/static/media/img5.361120198dd3c61736ac.png",
     "static/media/img2.png": "/ARTHUB/static/media/img2.c5e997b97b89855d86de.png",
     "index.html": "/ARTHUB/index.html",
-    "main.cfe9bc81.css.map": "/ARTHUB/static/css/main.cfe9bc81.css.map",
-    "main.6892dd69.js.map": "/ARTHUB/static/js/main.6892dd69.js.map",
+    "main.65e391f9.css.map": "/ARTHUB/static/css/main.65e391f9.css.map",
+    "main.a1f686ec.js.map": "/ARTHUB/static/js/main.a1f686ec.js.map",
     "787.561293a9.chunk.js.map": "/ARTHUB/static/js/787.561293a9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cfe9bc81.css",
-    "static/js/main.6892dd69.js"
+    "static/css/main.65e391f9.css",
+    "static/js/main.a1f686ec.js"
   ]
 }
