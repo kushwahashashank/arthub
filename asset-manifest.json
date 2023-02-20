@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ARTHUB/static/css/main.cfe9bc81.css",
+    "main.js": "/ARTHUB/static/js/main.6892dd69.js",
+    "static/js/787.561293a9.chunk.js": "/ARTHUB/static/js/787.561293a9.chunk.js",
+    "static/media/img4.png": "/ARTHUB/static/media/img4.2145ddf167b57c6a1351.png",
+    "static/media/img3.png": "/ARTHUB/static/media/img3.64dc188150b9b264f002.png",
+    "static/media/photo.png": "/ARTHUB/static/media/photo.1f3052abc50f25e13a7d.png",
+    "static/media/map.png": "/ARTHUB/static/media/map.ec87632a12e1c6b5ce0d.png",
+    "static/media/img1.png": "/ARTHUB/static/media/img1.78df59e7b1abd604e7ee.png",
+    "static/media/img5.png": "/ARTHUB/static/media/img5.361120198dd3c61736ac.png",
+    "static/media/img2.png": "/ARTHUB/static/media/img2.c5e997b97b89855d86de.png",
+    "index.html": "/ARTHUB/index.html",
+    "main.cfe9bc81.css.map": "/ARTHUB/static/css/main.cfe9bc81.css.map",
+    "main.6892dd69.js.map": "/ARTHUB/static/js/main.6892dd69.js.map",
+    "787.561293a9.chunk.js.map": "/ARTHUB/static/js/787.561293a9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cfe9bc81.css",
+    "static/js/main.6892dd69.js"
+  ]
+}
