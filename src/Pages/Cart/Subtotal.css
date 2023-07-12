@@ -1,0 +1,27 @@
+.subtotal {
+  display: flex;
+  width: 20rem;
+  flex-direction: column;
+  padding-top: 2rem;
+}
+.cart_subtotal_column {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  font-size: 1.2rem;
+  color: rgb(158, 158, 158);
+}
+.cart_checkout {
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: rgb(242, 241, 241);
+  border: 0px;
+  border-radius: 6px;
+  background-color: rgb(168, 166, 161);
+  cursor: pointer;
+}

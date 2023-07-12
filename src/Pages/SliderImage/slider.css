@@ -1,0 +1,159 @@
+.container-slider {
+  width: 100vw;
+  padding-top: 1rem;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+.slide {
+  display: flex;
+  flex-direction: row;
+}
+.image_slider {
+  display: flex;
+  flex-direction: row;
+  width: 49%;
+  margin-right: 1%;
+}
+.image_slider img {
+  width: 100%;
+  object-fit: contain;
+}
+.show_slider {
+  display: flex;
+}
+.hide_slider {
+  display: none;
+}
+.active-anim {
+  opacity: 1;
+}
+.values {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  margin-left: 1%;
+  padding-right: 2rem;
+}
+.name_image {
+  font-size: 3rem;
+  color: rgb(124, 120, 120);
+}
+
+.details {
+  font-size: 1rem;
+  padding-top: 2rem;
+  line-height: 1.5;
+  color: rgb(105, 105, 105);
+  text-align: justify;
+}
+.values button {
+  padding: 2rem 1rem 2rem 1rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 0px;
+  background-color: rgb(148, 148, 148);
+  color: white;
+  cursor: pointer;
+}
+.btn_sliders {
+  width: 100vw;
+  display: flex;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 10rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+.buySlider {
+  padding-top: 12rem;
+}
+.btn-slide {
+  display: flex;
+  cursor: pointer;
+  background-color: unset;
+  border: unset;
+  color: rgb(0, 0, 0);
+  font-size: 2rem;
+}
+.slider_content {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.fontsize {
+  font-size: 1.8rem;
+}
+.move_btn {
+  font-size: 1.4rem;
+}
+
+.buy_price {
+  font-size: 1.8rem;
+  color: rgb(74, 74, 74);
+}
+@media (max-width: 1100px) {
+  .slide {
+    flex-direction: column;
+  }
+  .image_slider {
+    width: 100%;
+    margin-right: 0%;
+  }
+  .image_slider img {
+    width: 100%;
+  }
+
+  .values {
+    width: 100%;
+    margin-left: 0%;
+    padding-top: 1rem;
+    padding-right: 0rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .container-slider {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .btn_sliders {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+@media (max-width: 600px) {
+  .name_image {
+    font-size: 2rem;
+  }
+
+  .btn_sliders {
+    padding-top: 7rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .buySlider {
+    padding-top: 7rem;
+  }
+  .fontsize {
+    font-size: 1.5rem;
+  }
+  .move_btn {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .btn_sliders {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .fontsize {
+    font-size: 1.2rem;
+  }
+  .move_btn {
+    font-size: 1rem;
+  }
+}

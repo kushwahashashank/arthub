@@ -1,0 +1,11 @@
+* {
+  font-family: sans-serif;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none;
+}

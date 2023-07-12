@@ -1,0 +1,16 @@
+.fa {
+  color: black;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+}
+.fa :hover {
+  cursor: pointer;
+}
+footer {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
+  padding: 0 5% 0 5%;
+}

@@ -1,0 +1,72 @@
+.newsletter {
+  width: 100vw;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.head {
+  font-size: 2rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+  color: rgb(105, 105, 105);
+}
+.newshead {
+  text-align: center;
+}
+.newsform {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.newsform input {
+  padding: 0.8rem 0.5rem 0.8rem 0.8rem;
+  margin: 1rem 0.5rem 1rem 0.5rem;
+  width: 18%;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid grey;
+  outline: none;
+  min-width: 15rem;
+}
+#newssignup {
+  padding: 0.8rem 0.5rem 0.8rem 0.8rem;
+  margin: 1rem 0.5rem 1rem 0.5rem;
+  width: 8%;
+  min-width: 8rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 0px;
+  cursor: pointer;
+  background-color: rgb(168, 166, 161);
+  color: white;
+}
+
+.pros {
+  margin-top: 1rem;
+}
+
+@media (max-width: 911px) {
+  .newsform input {
+    margin: 0rem 0.2rem 1rem 0.2rem;
+  }
+  #newssignup {
+    margin: 0rem 0.5rem 1rem 0.5rem;
+  }
+}
+@media (max-width: 512px) {
+  .newsform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .newsform input {
+    min-width: 90%;
+  }
+}
