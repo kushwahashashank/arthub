@@ -169,7 +169,7 @@ function Cart() {
             YOU HAVE NOTHING IN YOUR SHOPPING CART.
           </p>
           <Link
-            to="/Store"
+            to="/store"
             style={{
               textDecoration: "none",
             }}

@@ -39,7 +39,7 @@ export default function Login() {
               name: res.data.name,
               email: res.data.email,
             });
-            navigate("/ARTHUB");
+            navigate("/");
           }
         });
     } catch (error) {
@@ -58,7 +58,7 @@ export default function Login() {
         <div className="Form_register">
           <form id="contactForm">
             <p className="form_head">SINGN IN</p>
-            <p className="input_data">
+            <p className="input_form_data">
               <input
                 className="input_values_log"
                 type="email"
@@ -70,7 +70,7 @@ export default function Login() {
                 onChange={getUserData}
               />
             </p>
-            <p className="input_data">
+            <p className="input_form_data">
               <input
                 className="input_values_log"
                 type="password"

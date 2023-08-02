@@ -35,7 +35,7 @@ export default function Register() {
                 email: res.data.email,
               });
               setLoading(false);
-              navigate("/ARTHUB");
+              navigate("/");
             }
             console.log(res);
             console.log(res.status);
@@ -67,7 +67,7 @@ export default function Register() {
         <div className="Form_register">
           <form id="contactForm">
             <p className="form_head">REGISTER</p>
-            <p className="input_data">
+            <p className="input_form_data">
               <input
                 className="input_values_log"
                 type="text"
@@ -79,7 +79,7 @@ export default function Register() {
                 onChange={getuserData}
               />
             </p>
-            <p className="input_data">
+            <p className="input_form_data">
               <input
                 className="input_values_log"
                 type="email"
@@ -91,7 +91,7 @@ export default function Register() {
                 onChange={getuserData}
               />
             </p>
-            <p className="input_data">
+            <p className="input_form_data">
               <input
                 className="input_values_log"
                 type="password"
@@ -103,7 +103,7 @@ export default function Register() {
                 onChange={getuserData}
               />
             </p>
-            <p className="input_data">
+            <p className="input_form_data">
               <input
                 className="input_values_log"
                 type="password"

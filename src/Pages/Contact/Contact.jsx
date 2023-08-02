@@ -27,7 +27,7 @@ export default function Contact() {
         </div>
 
         <div className="Form">
-          <form id="contactForm" method="POST">
+          <form id="contactForm">
             <p className="input_data">
               <label className="name">Name *</label>
               <div className="first">
@@ -84,7 +84,7 @@ export default function Contact() {
               ></textarea>
             </p>
 
-            <button id="submit" className="contact_submit" type="submit">
+            <button id="submit" className="contact_submit">
               SEND
             </button>
           </form>

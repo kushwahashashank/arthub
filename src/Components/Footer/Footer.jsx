@@ -13,7 +13,6 @@ import { MyContext } from "../../MyContext";
 import axios from "axios";
 import Load from "../Loader/Load";
 function Footer() {
-
   // user handling
   const { setUser } = useContext(MyContext);
   const [loading, setLoading] = useState(false);
@@ -69,7 +68,7 @@ function Footer() {
     dispatch(SetBasket(basketcurrent));
   }
   getCookies();
-  
+
   const fb = () => {
     window.open("https://www.facebook.com");
   };

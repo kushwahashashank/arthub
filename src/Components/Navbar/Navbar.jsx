@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { MyContext } from "../../MyContext";
 
 export default function Navbar() {
-  const { user,setUser } = useContext(MyContext);
+  const { user } = useContext(MyContext);
   const Basket = useSelector((state) => state.controlBasket);
   const [active, setActive] = useState("home");
   const [shownav, setNav] = useState(false);
@@ -35,7 +35,7 @@ export default function Navbar() {
               setActive("home");
               window.scrollTo(0, 0);
             }}
-            to="/ARTHUB"
+            to="/"
           >
             <img src={logo} alt="Logo" />
           </Link>
@@ -51,7 +51,7 @@ export default function Navbar() {
                 setActive("work");
                 window.scrollTo(0, 0);
               }}
-              to="/Work"
+              to="/work"
             >
               WORK
             </Link>
@@ -63,7 +63,7 @@ export default function Navbar() {
                 setActive("store");
                 window.scrollTo(0, 0);
               }}
-              to="/Store"
+              to="/store"
             >
               PRINTS
             </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
                 setActive("about");
                 window.scrollTo(0, 0);
               }}
-              to="/About"
+              to="/about"
             >
               ABOUT
             </Link>
@@ -90,7 +90,7 @@ export default function Navbar() {
                 setActive("contact");
                 window.scrollTo(0, 0);
               }}
-              to="/Contact"
+              to="/contact"
             >
               CONTACT
             </Link>
@@ -132,7 +132,7 @@ export default function Navbar() {
               fontStyle: "none",
               paddingTop: "10px",
             }}
-            to="/Cart"
+            to="/cart"
             onClick={() => {
               setActive("home");
               window.scrollTo(0, 0);
@@ -154,15 +154,14 @@ export default function Navbar() {
       </div>
 
       {showButton && (
-        <L
-          to="nav"
-          style={{ display: "none" }}
-          smooth={true}
-          duration={1000}
+        <p
           id="scroll"
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
         >
           <BsFillArrowUpCircleFill />
-        </L>
+        </p>
       )}
     </>
   );

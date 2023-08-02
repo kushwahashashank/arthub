@@ -1,6 +1,5 @@
 {
-   "homepage": "http://kushwahashashank.github.io/ARTHUB",
-   "name": "webd",
+   "name": "arthub",
    "version": "0.1.0",
    "private": true,
    "proxy":"http://localhost:4000",

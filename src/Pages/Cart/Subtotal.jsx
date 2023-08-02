@@ -15,7 +15,7 @@ export default function Subtotal() {
         <p>&#x20b9;{parseInt(value)}</p>
       </div>
       <Link
-        to="/Payment"
+        to="/payment"
         className="cart_checkout"
         onClick={() => {
           window.scrollTo(0, 0);
@@ -43,7 +43,7 @@ function Gettotal() {
       <p>Total : </p>
       <p>&#x20b9;{parseInt(value)}</p>
       <Link
-        to="/Cart"
+        to="/cart"
         style={{
           textDecoration: "none",
           color: "white",
