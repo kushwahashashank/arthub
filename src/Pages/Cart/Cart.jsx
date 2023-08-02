@@ -17,27 +17,27 @@ function Cart() {
   const dispatch = useDispatch();
   const [cookies, setCookie] = useCookies(["CART"]);
   var cartcookies = cookies["CART"];
-  function getCookies() {
-    var basketcurrent = [];
-    if (cartcookies !== undefined && cartcookies.length > 0) {
-      var i, j;
-      for (i = 0; i < cartcookies.length; i++) {
-        for (j = 0; j < data.length; j++) {
-          if (cartcookies[i].id === data[j].id) {
-            basketcurrent.push({
-              photo: data[j].photo,
-              text: data[j].text,
-              price: data[j].price,
-              id: data[j].id,
-              cartprice: cartcookies[i].count * data[j].price,
-              count: cartcookies[i].count,
-            });
-          }
-        }
-      }
-    }
-    dispatch(SetBasket(basketcurrent));
-  }
+  // function getCookies() {
+  //   var basketcurrent = [];
+  //   if (cartcookies !== undefined && cartcookies.length > 0) {
+  //     var i, j;
+  //     for (i = 0; i < cartcookies.length; i++) {
+  //       for (j = 0; j < data.length; j++) {
+  //         if (cartcookies[i].id === data[j].id) {
+  //           basketcurrent.push({
+  //             photo: data[j].photo,
+  //             text: data[j].text,
+  //             price: data[j].price,
+  //             id: data[j].id,
+  //             cartprice: cartcookies[i].count * data[j].price,
+  //             count: cartcookies[i].count,
+  //           });
+  //         }
+  //       }
+  //     }
+  //   }
+  //   dispatch(SetBasket(basketcurrent));
+  // }
   // getCookies();
   var Basket = useSelector((state) => state.controlBasket);
 

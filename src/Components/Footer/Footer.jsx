@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Footer.css";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
@@ -9,10 +9,44 @@ import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { SetBasket } from "../../Global/Actions/Index";
 import projects from "../../Data/Data";
+import { MyContext } from "../../MyContext";
+import axios from "axios";
+import Load from "../Loader/Load";
 function Footer() {
+
+  // user handling
+  const { setUser } = useContext(MyContext);
+  const [loading, setLoading] = useState(false);
+
+  const isAuthenticated = async (e) => {
+    setLoading(true);
+    try {
+      axios.get("/isauthenticated").then((res) => {
+        console.log("res", res);
+        console.log("status", res.status);
+        setLoading(false);
+        if (res.status === 200) {
+          setUser({
+            name: res.data.name,
+            email: res.data.email,
+          });
+        }
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log("error", error);
+    }
+  };
+  // useEffect(() => {
+  //   console.log("Abhishek");
+  //   isAuthenticated();
+  // }, []);
+  // Cart maupalation
+
   const dispatch = useDispatch();
   const [cookies] = useCookies(["CART"]);
   var cartcookies = cookies["CART"];
+
   function getCookies() {
     var basketcurrent = [];
     if (cartcookies !== undefined && cartcookies.length > 0) {
@@ -35,6 +69,7 @@ function Footer() {
     dispatch(SetBasket(basketcurrent));
   }
   getCookies();
+  
   const fb = () => {
     window.open("https://www.facebook.com");
   };
@@ -49,6 +84,7 @@ function Footer() {
   };
   return (
     <>
+      {loading ? <Load /> : <></>}
       <footer id="footer">
         <BsTwitter
           id="twitter"

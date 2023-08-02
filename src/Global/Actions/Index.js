@@ -29,3 +29,20 @@ export const SetBasket = (basket) => {
     item: basket,
   };
 };
+export const SetUser = (email, basket, name) => {
+  // console.log(email, name, "action index");
+  return {
+    type: "LOGIN",
+    item: {
+      email,
+      basket,
+      name,
+    },
+  };
+};
+export const LogoutUser = (id) => {
+  return {
+    type: "LOGOUT",
+    item: id,
+  };
+};

@@ -1,10 +1,9 @@
 let basket = [];
-
+console.log("initial basket", basket);
 export const getbasketSize = (Basket) =>
   Basket?.reduce((value, item) => value + item.count, 0);
 export const getbaskettotal = (Basket) =>
   Basket?.reduce((amount, item) => amount + item.price * item.count, 0);
-
 const controlBasket = (state, action) => {
   switch (action.type) {
     case "DELETEFROMBASKET":

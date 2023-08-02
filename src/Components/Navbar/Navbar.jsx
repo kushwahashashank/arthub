@@ -6,7 +6,11 @@ import { BsFillArrowUpCircleFill, BsCartFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getbasketSize } from "../../Global/Reducers/Cart";
+import { useContext } from "react";
+import { MyContext } from "../../MyContext";
+
 export default function Navbar() {
+  const { user,setUser } = useContext(MyContext);
   const Basket = useSelector((state) => state.controlBasket);
   const [active, setActive] = useState("home");
   const [shownav, setNav] = useState(false);
@@ -94,11 +98,39 @@ export default function Navbar() {
         </ul>
         {/* Cart */}
         <div className="cart">
+          {user?.name?.length > 0 ? (
+            <p
+              style={{
+                color: "rgb(153, 153, 153)",
+                paddingRight: "5px",
+                textDecoration: "none",
+                fontSize: "1rem",
+                margin: "1rem 1rem 1rem 1rem",
+              }}
+            >
+              {user?.name}
+            </p>
+          ) : (
+            <Link
+              style={{
+                color: "rgb(153, 153, 153)",
+                paddingRight: "5px",
+                textDecoration: "none",
+                fontSize: "1rem",
+                margin: "1rem 1rem 1rem 1rem",
+              }}
+              to="/login"
+            >
+              Sign In
+            </Link>
+          )}
+
           <Link
             style={{
               cursor: "pointer",
               color: "black",
               fontStyle: "none",
+              paddingTop: "10px",
             }}
             to="/Cart"
             onClick={() => {
