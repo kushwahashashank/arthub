@@ -84,9 +84,9 @@
   padding-top: 0.5rem;
   padding-bottom: 0.8rem;
 }
-@media (max-width: 800px) {
-  .Form {
-    width: 100%;
+@media (max-width: 900px) {
+  .Form_register {
+    width: 80%;
   }
 
   .input_data {
@@ -94,7 +94,7 @@
   }
 
   .input_values_log {
-    min-width: 12rem;
+    min-width: 90%;
   }
 
   .contact_data {
