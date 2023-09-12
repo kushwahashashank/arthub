@@ -16,7 +16,6 @@ function Footer() {
   // user handling
   const { setUser } = useContext(MyContext);
   const [loading, setLoading] = useState(false);
-
   const isAuthenticated = async (e) => {
     setLoading(true);
     try {
@@ -36,10 +35,10 @@ function Footer() {
       console.log("error", error);
     }
   };
-  // useEffect(() => {
-  //   console.log("Abhishek");
-  //   isAuthenticated();
-  // }, []);
+  useEffect(() => {
+    // console.log("Abhishek");
+    isAuthenticated();
+  }, []);
   // Cart maupalation
 
   const dispatch = useDispatch();

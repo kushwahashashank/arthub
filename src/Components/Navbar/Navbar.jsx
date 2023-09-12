@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
+import "./User.css";
 import logo from "../../Asset/Images/logo.png";
 import { Link as L } from "react-scroll";
 import { BsFillArrowUpCircleFill, BsCartFill } from "react-icons/bs";
@@ -8,13 +9,16 @@ import { Link } from "react-router-dom";
 import { getbasketSize } from "../../Global/Reducers/Cart";
 import { useContext } from "react";
 import { MyContext } from "../../MyContext";
-
+import axios from "axios";
+import Load from "../Loader/Load";
 export default function Navbar() {
-  const { user } = useContext(MyContext);
+  const { user, setUser } = useContext(MyContext);
+  const [loading, setLoading] = useState(false);
   const Basket = useSelector((state) => state.controlBasket);
   const [active, setActive] = useState("home");
   const [shownav, setNav] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [showUser, setShowUser] = useState(false);
   var value = parseInt(getbasketSize(Basket));
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -26,8 +30,31 @@ export default function Navbar() {
     });
   }, []);
 
+  //Logout Function
+
+  const LogOut = async (e) => {
+    setLoading(true);
+    try {
+      axios.get("/Logout").then((res) => {
+        console.log("res", res);
+        console.log("status", res.status);
+        setLoading(false);
+        if (res.status === 200) {
+          setUser({
+            name: res.data.name,
+            email: res.data.email,
+          });
+        }
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log("error", error);
+    }
+  };
+
   return (
     <>
+      {loading ? <Load /> : <></>}
       <div className="navigation">
         <div className="logo">
           <Link
@@ -108,7 +135,31 @@ export default function Navbar() {
                 margin: "1rem 1rem 1rem 1rem",
               }}
             >
-              {user?.name}
+              <div>
+                <p
+                  onClick={() => {
+                    setShowUser(!showUser);
+                  }}
+                  className="user"
+                >
+                  {user?.name}
+                </p>
+                {showUser ? (
+                  <div className="usercontrol">
+                    <button
+                      className="logout"
+                      onClick={() => {
+                        LogOut();
+                        setShowUser(!showUser);
+                      }}
+                    >
+                      LogOut
+                    </button>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
             </p>
           ) : (
             <Link
@@ -124,13 +175,11 @@ export default function Navbar() {
               Sign In
             </Link>
           )}
-
           <Link
             style={{
               cursor: "pointer",
               color: "black",
               fontStyle: "none",
-              paddingTop: "10px",
             }}
             to="/cart"
             onClick={() => {
@@ -141,6 +190,7 @@ export default function Navbar() {
             {<BsCartFill id="basket" />}
             <span className="badge">{parseInt(value)}</span>
           </Link>
+          <div className="navcontrol">
           <div
             id="nav-icon"
             className={shownav ? "open" : ""}
@@ -149,6 +199,7 @@ export default function Navbar() {
             <span></span>
             <span></span>
             <span></span>
+          </div>
           </div>
         </div>
       </div>

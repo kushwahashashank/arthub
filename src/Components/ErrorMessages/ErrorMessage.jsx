@@ -1,10 +1,17 @@
 import React from "react";
-import { Alert } from "react-bootstrap";
-function ErrorMessage({ varient = "info", children }) {
+// import Alert from "react-bootstrap/Alert";
+
+function ErrorMessage() {
   return (
-    <Alert varient={varient} style={{ fontsize: 20, color: "red" }}>
-      <strong>{children}</strong>
-    </Alert>
+    <>
+      {/* <Alert
+        varient="info"
+        style={{ top: 0, left: 0, fontsize: 20, color: "red" }}
+      >
+        <strong>Hellp</strong>
+      </Alert> */}
+      {/* <Alert severity="error">This is an error alert — check it out!</Alert> */}
+    </>
   );
 }
 

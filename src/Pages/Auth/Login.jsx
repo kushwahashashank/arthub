@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./Register.css";
 import Load from "../../Components/Loader/Load";
+import { GrClose } from "react-icons/gr";
 import { useContext } from "react";
 import { MyContext } from "../../MyContext";
 
@@ -15,35 +16,78 @@ export default function Login() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [errormessage, setErrormessage] = useState("");
+  function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  function ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return false;
+    }
+    return true;
+  }
+  function form_Validation() {
+    const { email, password } = data;
+    if (ValidateEmail(email)) {
+      setLoading(false);
+      setErrormessage("Please enter valid Email");
+      delay(3000).then(function () {
+        setErrormessage("");
+      });
+      return false;
+    } else if (password.length === 0) {
+      setLoading(false);
+      setErrormessage("Please enter your password");
+      delay(3000).then(function () {
+        setErrormessage("");
+      });
+      return false;
+    } else {
+      return true;
+    }
+  }
   const registerUser = async (e) => {
     setLoading(true);
     e.preventDefault();
     const { email, password } = data;
-    setData({
-      email: "",
-      password: "",
-    });
-    try {
-      axios
-        .post("/login", {
-          email,
-          password,
-        })
-        .then((res) => {
-          console.log(res);
-          console.log(res.status);
-          setLoading(false);
-          if (res.status === 200) {
-            // dispatch(SetUser(res.data.email, [], res.data.name));
-            setUser({
-              name: res.data.name,
-              email: res.data.email,
-            });
-            navigate("/");
-          }
+    if (form_Validation()) {
+      try {
+        axios
+          .post("/login", {
+            email,
+            password,
+          })
+          .then((res) => {
+            setLoading(false);
+            if (res.status === 200) {
+              setUser({
+                name: res.data.name,
+                email: res.data.email,
+              });
+              navigate("/");
+            }
+            if (res.status === 203) {
+              setUser({
+                name: res.data.name,
+                email: res.data.email,
+              });
+              setErrormessage("Invalid credentials");
+              delay(3000).then(function () {
+                setErrormessage("");
+              });
+            }
+          });
+      } catch (error) {
+        setLoading(false);
+        setData({
+          email: "",
+          password: "",
         });
-    } catch (error) {
-      console.log(error);
+        setErrormessage("Server error");
+        delay(3000).then(function () {
+          setErrormessage("");
+        });
+      }
     }
   };
 
@@ -56,8 +100,10 @@ export default function Login() {
       {loading ? <Load /> : <></>}
       <div className="registerbackground">
         <div className="Form_register">
+          <GrClose onClick={() => navigate(-1)} className="cross" />
           <form id="contactForm">
             <p className="form_head">SINGN IN</p>
+            {errormessage && <p className="error_message">{errormessage}</p>}
             <p className="input_form_data">
               <input
                 className="input_values_log"
@@ -86,7 +132,7 @@ export default function Login() {
               id="submit"
               className="contact_submit"
               type="submit"
-              // onClick={registerUser}
+              onClick={registerUser}
             >
               SIGN IN
             </button>

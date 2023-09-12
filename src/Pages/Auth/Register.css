@@ -10,6 +10,7 @@
   align-items: center;
 }
 .Form_register {
+  position: relative;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding-top: 5rem;
   padding-bottom: 3rem;
@@ -20,6 +21,15 @@
   align-items: center;
   justify-content: center;
   background-color: rgb(255, 255, 255);
+}
+.error_message {
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+  background-color: rgb(242, 124, 124);
+  margin-top: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 .form_head {
   font-size: 1.8rem;
@@ -84,19 +94,34 @@
   padding-top: 0.5rem;
   padding-bottom: 0.8rem;
 }
-@media (max-width: 900px) {
-  .Form_register {
-    width: 80%;
-  }
 
+.cross {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 1.3rem;
+}
+@media (max-width: 1200px) {
+  .Form_register {
+    width: 70%;
+  }
   .input_data {
     width: 100%;
   }
-
-  .input_values_log {
-    min-width: 80%;
+  .contact_data {
+    font-size: 1rem;
   }
-
+}
+@media (max-width: 600px) {
+  .Form_register {
+    width: 90%;
+  }
+  s .input_data {
+    width: 50%;
+  }
+  .input_values_log {
+    min-width: 50%;
+  }
   .contact_data {
     font-size: 1rem;
   }
