@@ -41,17 +41,7 @@ h2 {
   display: flex;
   flex-direction: column;
 }
-.input_name {
-  padding: 0.7rem 0.5rem 0.7rem 0.5rem;
-  margin: 0.5rem 0rem 0.3rem 0rem;
-  width: 20vw;
-  font-size: 1rem;
-  border-radius: 2px;
-  border: 1px solid rgb(204, 200, 200);
-  background-color: rgb(247, 246, 244);
-  outline: none;
-  min-width: 6rem;
-}
+
 .input_values {
   padding: 0.7rem 0.5rem 0.7rem 0.5rem;
   margin: 0.5rem 0.5rem 0.3rem 0rem;
@@ -89,16 +79,7 @@ label {
   padding-top: 5rem;
   padding-bottom: 3rem;
 }
-@media (max-width: 1000px) {
-  .input_name {
-    width: 19vw;
-  }
-}
-@media (max-width: 900px) {
-  .input_name {
-    width: 18vw;
-  }
-}
+
 @media (max-width: 800px) {
   .map {
     padding-left: 5%;
@@ -121,10 +102,7 @@ label {
   .input_data {
     width: 100%;
   }
-  .input_name {
-    width: 43vw;
-    min-width: 6rem;
-  }
+
   .input_values {
     min-width: 12rem;
   }

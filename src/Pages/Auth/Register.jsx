@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { MyContext } from "../../MyContext";
 export default function Register() {
   document.title = "Register";
-  const { setUser } = useContext(MyContext);
+  const { setUser, notify } = useContext(MyContext);
   let navigate = useNavigate();
   const [errormessage, setErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function Register() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
   function ValidateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return false;
     }
     return true;
@@ -68,37 +68,39 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     const { name, email, password } = userdata;
+    let cart=[];
     if (form_Validation()) {
-      try {
-        axios
-          .post("/register", {
-            name,
-            email,
-            password,
-          })
-          .then((res) => {
-            if (res.status === 201) {
-              setUser({
-                name: res.data.name,
-                email: res.data.email,
-              });
-              setLoading(false);
-              navigate("/");
-            } else if (res.status === 202) {
-              setLoading(false);
-              setErrormessage("Email already exists !");
-              delay(3000).then(function () {
-                setErrormessage("");
-              });
-            }
+      axios
+        .post("/register", {
+          name,
+          email,
+          password,
+          cart,
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            setUser({
+              name: res.data.name,
+              email: res.data.email,
+            });
+            setLoading(false);
+            navigate("/");
+            notify("success", "Registered successfully !");
+          } else if (res.status === 202) {
+            setLoading(false);
+            setErrormessage("Email already exists !");
+            delay(3000).then(function () {
+              setErrormessage("");
+            });
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setErrormessage("Server Error");
+          delay(3000).then(function () {
+            setErrormessage("");
           });
-      } catch (error) {
-        setLoading(false);
-        setErrormessage("Server Error");
-        delay(3000).then(function () {
-          setErrormessage("");
         });
-      }
     }
   };
 

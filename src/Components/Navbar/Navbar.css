@@ -142,12 +142,16 @@ li a:hover {
 }
 #scroll {
   position: fixed;
+  height: 2.5rem;
+  display: flex;
+  width: 2.5rem;
   bottom: 2.5rem;
   right: 1.5rem;
+  display: flex;
   z-index: 99;
   border: none;
   outline: none;
-  color: rgb(0, 0, 0);
+  background-color: rgb(56, 56, 56);
   cursor: pointer;
   border-radius: 50%;
   font-size: 2rem;

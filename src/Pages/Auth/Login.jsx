@@ -6,10 +6,12 @@ import Load from "../../Components/Loader/Load";
 import { GrClose } from "react-icons/gr";
 import { useContext } from "react";
 import { MyContext } from "../../MyContext";
-
+import { useDispatch } from "react-redux";
+import { SetBasket } from "../../Global/Actions/Index";
 export default function Login() {
   document.title = "Login";
-  const { user, setUser } = useContext(MyContext);
+  const dispatch = useDispatch();
+  const { setUser, notify } = useContext(MyContext);
   let navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
@@ -21,7 +23,7 @@ export default function Login() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
   function ValidateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return false;
     }
     return true;
@@ -51,43 +53,55 @@ export default function Login() {
     e.preventDefault();
     const { email, password } = data;
     if (form_Validation()) {
-      try {
-        axios
-          .post("/login", {
-            email,
-            password,
-          })
-          .then((res) => {
-            setLoading(false);
-            if (res.status === 200) {
-              setUser({
-                name: res.data.name,
-                email: res.data.email,
-              });
-              navigate("/");
-            }
-            if (res.status === 203) {
-              setUser({
-                name: res.data.name,
-                email: res.data.email,
-              });
-              setErrormessage("Invalid credentials");
-              delay(3000).then(function () {
-                setErrormessage("");
-              });
-            }
+      axios
+        .post("/login", {
+          email,
+          password,
+        })
+        .then((res) => {
+          setLoading(false);
+          if (res.status === 200) {
+            setUser({
+              name: res.data.name,
+              email: res.data.email,
+              cart: res.data.cart,
+            });
+            dispatch(SetBasket(res.data.cart));
+            navigate("/");
+            notify("success", "User logged in !");
+          }
+          if (res.status === 203) {
+            setUser({
+              name: res.data.name,
+              email: res.data.email,
+            });
+            setErrormessage("Invalid credentials");
+            delay(3000).then(function () {
+              setErrormessage("");
+            });
+          }
+          if (res.status === 202) {
+            setUser({
+              name: res.data.name,
+              email: res.data.email,
+            });
+            setErrormessage("User does not exists");
+            delay(3000).then(function () {
+              setErrormessage("");
+            });
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setData({
+            email: "",
+            password: "",
           });
-      } catch (error) {
-        setLoading(false);
-        setData({
-          email: "",
-          password: "",
+          setErrormessage("Server error");
+          delay(3000).then(function () {
+            setErrormessage("");
+          });
         });
-        setErrormessage("Server error");
-        delay(3000).then(function () {
-          setErrormessage("");
-        });
-      }
     }
   };
 

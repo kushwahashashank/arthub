@@ -8,7 +8,7 @@ export default function BtnSlider({ moveSlide, direction, value }) {
       className={direction === "next" ? "btn-slide next" : "btn-slide prev"}
     >
       {direction === "next" ? (
-       <div className="slider_content">
+        <div className="slider_content">
           <p className="move_btn">{value}</p>
           <MdArrowForwardIos className="fontsize" />
         </div>

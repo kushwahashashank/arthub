@@ -2,17 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import "./User.css";
 import logo from "../../Asset/Images/logo.png";
-import { Link as L } from "react-scroll";
-import { BsFillArrowUpCircleFill, BsCartFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { BsCartFill } from "react-icons/bs";
+import { FaArrowUp } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getbasketSize } from "../../Global/Reducers/Cart";
 import { useContext } from "react";
 import { MyContext } from "../../MyContext";
 import axios from "axios";
 import Load from "../Loader/Load";
+import { UnsetCart } from "../../Global/Actions/Index";
+import { useNavigate } from "react-router-dom";
 export default function Navbar() {
-  const { user, setUser } = useContext(MyContext);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user, setUser, notify } = useContext(MyContext);
   const [loading, setLoading] = useState(false);
   const Basket = useSelector((state) => state.controlBasket);
   const [active, setActive] = useState("home");
@@ -34,22 +38,21 @@ export default function Navbar() {
 
   const LogOut = async (e) => {
     setLoading(true);
-    try {
-      axios.get("/Logout").then((res) => {
-        console.log("res", res);
-        console.log("status", res.status);
+    axios
+      .get("/Logout")
+      .then((res) => {
         setLoading(false);
         if (res.status === 200) {
-          setUser({
-            name: res.data.name,
-            email: res.data.email,
-          });
+          setUser(null);
+          dispatch(UnsetCart());
+          notify("success", "User logged out !");
+          navigate("/");
         }
+      })
+      .catch((error) => {
+        setLoading(false);
+        notify("error", "Error logging out !");
       });
-    } catch (error) {
-      setLoading(false);
-      console.log("error", error);
-    }
   };
 
   return (
@@ -191,15 +194,15 @@ export default function Navbar() {
             <span className="badge">{parseInt(value)}</span>
           </Link>
           <div className="navcontrol">
-          <div
-            id="nav-icon"
-            className={shownav ? "open" : ""}
-            onClick={() => setNav(!shownav)}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+            <div
+              id="nav-icon"
+              className={shownav ? "open" : ""}
+              onClick={() => setNav(!shownav)}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
         </div>
       </div>
@@ -211,7 +214,9 @@ export default function Navbar() {
             window.scrollTo(0, 0);
           }}
         >
-          <BsFillArrowUpCircleFill />
+          <FaArrowUp
+            style={{ color: "white", fontSize: "1.2rem", margin: "auto" }}
+          />
         </p>
       )}
     </>

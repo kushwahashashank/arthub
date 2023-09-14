@@ -1,24 +1,88 @@
 import React, { useState } from "react";
 import "./Contact.css";
 import map from "../../Asset/Images/map.png";
+import axios from "axios";
+import Load from "../../Components/Loader/Load";
+import { useContext } from "react";
+import { MyContext } from "../../MyContext";
 export default function Contact() {
   document.title = "Contact";
+  const { notify } = useContext(MyContext);
   const [user, setUser] = useState({
-    fname: "",
-    lname: "",
+    name: "",
     email: "",
     message: "",
   });
-
-  let name, value;
+  const [loading, setLoading] = useState(false);
   const getUserData = (event) => {
-    name = event.target.name;
-    value = event.target.value;
-    setUser({ ...user, [name]: value });
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
+  function ValidateEmail(mail) {
+    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return false;
+    }
+    return true;
+  }
+  function form_Validation() {
+    const { name, email, message } = user;
+    if (name.length === 0) {
+      setLoading(false);
+      notify("warning", "Please enter your name !");
+      return false;
+    } else if (ValidateEmail(email)) {
+      setLoading(false);
+      notify("warning", "Please enter valid email !");
+      return false;
+    } else if (message.length === 0) {
+      setLoading(false);
+      notify("warning", "Can't send empty message !");
+      return false;
+    } else {
+      return true;
+    }
+  }
+  const sendMessage = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const { name, email, message } = user;
+    if (form_Validation()) {
+      axios
+        .post("/sendmessage", {
+          name,
+          email,
+          message,
+          status: false,
+        })
+        .then((res) => {
+          setLoading(false);
+          if (res.status === 201) {
+            notify("success", "Message sent successfully");
+            setUser({
+              name: "",
+              email: "",
+              message: "",
+            });
+          }
+          if (res.status === 202) {
+            notify("error", "Unable to send message");
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          setUser({
+            name: "",
+            email: "",
+            message: "",
+          });
+          notify("error", "Server error");
+        });
+    }
   };
 
   return (
     <>
+      {loading ? <Load /> : <></>}
       <div id="contact" className="contact">
         <div className="left_contact">
           <h2>CONTACT US</h2>
@@ -29,33 +93,18 @@ export default function Contact() {
         <div className="Form">
           <form id="contactForm">
             <p className="input_data">
-              <label className="name">Name *</label>
-              <div className="first">
-                <p>
-                  <input
-                    className="input_name"
-                    type="text"
-                    name="fname"
-                    id="fname"
-                    value={user.fname}
-                    onChange={getUserData}
-                    required
-                  />
-                  <p>First Name</p>
-                </p>
-                <p>
-                  <input
-                    className="input_name"
-                    type="text"
-                    name="lname"
-                    id="lname"
-                    value={user.lname}
-                    onChange={getUserData}
-                    required
-                  />
-                  <p>Last Name</p>
-                </p>
-              </div>
+              <label className="name">Full Name *</label>
+              <p>
+                <input
+                  className="input_values"
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={user.name}
+                  onChange={getUserData}
+                  required
+                />
+              </p>
             </p>
 
             <p className="input_data">
@@ -84,7 +133,11 @@ export default function Contact() {
               ></textarea>
             </p>
 
-            <button id="submit" className="contact_submit">
+            <button
+              id="submit"
+              className="contact_submit"
+              onClick={sendMessage}
+            >
               SEND
             </button>
           </form>

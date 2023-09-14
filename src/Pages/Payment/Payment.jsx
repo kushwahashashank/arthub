@@ -2,18 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Gettotal } from "../Cart/Subtotal";
 import { useSelector } from "react-redux";
 import upi from "../../Asset/Payment/UPI.png";
+import { useNavigate } from "react-router-dom";
 import rupay from "../../Asset/Payment/rupay.png";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./Payment.css";
+import { useContext } from "react";
+import { MyContext } from "../../MyContext";
 function Payment() {
+  const { notify } = useContext(MyContext);
+
   // cart items
   var Basket = useSelector((state) => state.controlBasket);
+
+  let navigate = useNavigate();
 
   // animation on load
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
+
+  //newsUpdate
+  const [newsSign, setNewsSign] = useState(false);
 
   // states for delivery toggle
   const [isActivedelivery, setIsActivedelivery] = useState(false);
@@ -44,11 +54,8 @@ function Payment() {
   });
 
   // Form values getter
-  let name, value;
   const getuserdetails = (event) => {
-    name = event.target.name;
-    value = event.target.value;
-    setAddress({ ...address, [name]: value });
+    setAddress({ ...address, [event.target.name]: event.target.value });
   };
 
   // email setter functions
@@ -61,7 +68,7 @@ function Payment() {
       //sets payment true else sets delivery input true
       filled ? setIsActivepayment(true) : setIsActivedelivery(true);
     } else {
-      alert("Enter email Id");
+      notify("warning", "Please enter your email !");
     }
   };
 
@@ -98,7 +105,7 @@ function Payment() {
       // sets delivery text true
       setIsdelivery_values(false);
     } else {
-      alert("Enter Email");
+      notify("warning", "Please enter your email !");
     }
   };
 
@@ -122,12 +129,20 @@ function Payment() {
       // sets delivery text true
       setIsdelivery_values(true);
     } else {
-      alert("Enter the address details");
+      notify("warning", "Please enter the address details !");
     }
   };
 
   return (
     <>
+      <button
+        className="goback"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        Go back
+      </button>
       <div className="static"></div>
       <div className="checkout">
         <div
@@ -207,6 +222,9 @@ function Payment() {
                     height: "1.2rem",
                     width: "1.2rem",
                     border: "1px solid #e1e1e1",
+                  }}
+                  onClick={() => {
+                    setNewsSign(!newsSign);
                   }}
                   type="checkbox"
                 />
@@ -495,7 +513,7 @@ function Payment() {
               </div>
             ))}
           </div>
-          <div>
+          <div className="cart_load">
             <Gettotal />
           </div>
         </div>

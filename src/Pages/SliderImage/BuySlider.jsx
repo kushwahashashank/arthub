@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./slider.css";
 import projects from "../../Data/Data.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AddToCart } from "../../Global/Actions/Index";
 import { useParams } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { useContext } from "react";
+import { MyContext } from "../../MyContext";
+import axios from "axios";
 export default function Slider() {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const { target } = useParams();
+  const { user, notify } = useContext(MyContext);
   function gettarget() {
     if (target) {
       return JSON.parse(target);
@@ -15,44 +20,41 @@ export default function Slider() {
       return 0;
     }
   }
+  let Basket = useSelector((state) => state.controlBasket);
   const slideIndex = gettarget();
-  const [cookies, setCookie] = useCookies(["CART"]);
-  function CartHandler(id, count) {
-    console.log(id, count);
-    var cartcookies = [];
-    if (cookies["CART"] === undefined) {
-      cartcookies.push({ id: id, count: count });
-      setCookie("CART", cartcookies, {
-        path: "/",
-        expires: new Date(new Date().getTime() + 500000 * 1000),
-      });
-      clearTimeout(myTimeout);
-    } else {
-      cartcookies = cookies["CART"];
-      var checkincrement = true;
-      cartcookies.map((e) => {
-        if (e.id === id) {
-          e.count++;
-          checkincrement = false;
-        }
-        return 0;
-      });
-      if (checkincrement) {
-        cartcookies.push({ id: id, count: count });
-      }
-
-      setCookie("CART", cartcookies, {
-        path: "/",
-        expires: new Date(new Date().getTime() + 500000 * 1000),
-      });
-      clearTimeout(myTimeout);
-    }
-  }
   const [btntext, setBtntext] = useState("ADD TO CART");
-  const myTimeout = setTimeout(change1, 1000);
+  const myTimeout = setTimeout(change1, 3000);
   function change1() {
     setBtntext("ADD TO CART");
   }
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    addtocart();
+  }, [Basket]);
+
+  const addtocart = async (e) => {
+    console.log("cart updated");
+    const { email } = user;
+    axios
+      .put("/updatecart", {
+        email,
+        cart: Basket,
+      })
+      .then((res) => {
+        if (res.status === 201 && loading) {
+          setBtntext("ADDED TO CART !");
+          setLoading(false);
+        }
+        if (res.status === 202) {
+          notify("error", "Unable to do operation !");
+        }
+        setTimeout(myTimeout);
+      })
+      .catch((error) => {
+        notify("error", "Server error !");
+        setTimeout(myTimeout);
+      });
+  };
 
   return (
     <>
@@ -74,16 +76,19 @@ export default function Slider() {
               <div className="values">
                 <p className="name_image">{e.text}</p>
                 <p className="details buy_price">&#x20b9;{e.price}</p>
-
                 <p className="details">{e.desc}</p>
                 <p className="details">{e.desc1}</p>
                 <button
                   onClick={() => {
-                    setBtntext("ADDING...");
-                    dispatch(
-                      AddToCart(e.photo, e.text, e.price, e.id, e.price, 1)
-                    );
-                    CartHandler(e.id, 1);
+                    if (user) {
+                      setBtntext("ADDING...");
+                      setLoading(true);
+                      dispatch(
+                        AddToCart(e.photo, e.text, e.price, e.id, e.price, 1)
+                      );
+                    } else {
+                      navigate("/login");
+                    }
                   }}
                 >
                   {btntext}

@@ -10,19 +10,40 @@ import BuySlider from "./Pages/SliderImage/BuySlider.jsx";
 import Cart from "./Pages/Cart/Cart.jsx";
 import NewsLetter from "./Components/NewsLetter/NewsLetter.jsx";
 import Work from "./Pages/Work/Work.jsx";
+import Pagenotfound from "./Components/Pagenotfound/Pagenotfound.jsx";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Payment from "./Pages/Payment/Payment.jsx";
-import ErrorMessage from "./Components/ErrorMessages/ErrorMessage.jsx";
 import Register from "./Pages/Auth/Register.jsx";
 import Login from "./Pages/Auth/Login.jsx";
 import { MyContext } from "./MyContext.js";
+import "react-notifications/lib/notifications.css";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 function App() {
   const [user, setUser] = useState(null);
-
+  const notify = (type, message) => {
+    switch (type) {
+      case "info":
+        NotificationManager.info(message);
+        break;
+      case "success":
+        NotificationManager.success(message);
+        break;
+      case "warning":
+        NotificationManager.warning(message);
+        break;
+      case "error":
+        NotificationManager.error(message);
+        break;
+      default:
+    }
+  };
   return (
     <>
-      <MyContext.Provider value={{ user, setUser }}>
+      <MyContext.Provider value={{ user, setUser, notify }}>
         <div className="app">
           <Router>
             <Navbar />
@@ -36,12 +57,14 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/error" element={<ErrorMessage />} />
+              {/* <Route path="/error" element={<ErrorMessage />} /> */}
               <Route path="/slider/:target" element={<Slider />} />
               <Route path="/buyslider/:target" element={<BuySlider />} />
+              <Route path="*" element={<Pagenotfound />} />
             </Routes>
             <NewsLetter />
             <Footer />
+            <NotificationContainer />
           </Router>
         </div>
       </MyContext.Provider>

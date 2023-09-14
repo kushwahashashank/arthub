@@ -1,5 +1,5 @@
 let basket = [];
-console.log("initial basket", basket);
+
 export const getbasketSize = (Basket) =>
   Basket?.reduce((value, item) => value + item.count, 0);
 export const getbaskettotal = (Basket) =>
@@ -37,15 +37,14 @@ const controlBasket = (state, action) => {
       let newBasket = [...basket];
       if (index >= 0) {
         newBasket.splice(index, 1);
-      } else {
-        console.warn(
-          `Can't remove product (id : ${action.id}) as its not in basket!`
-        );
       }
       basket = newBasket;
       return newBasket;
     case "SETBASKET":
       basket = action.item;
+      return basket;
+    case "UNSETBASKET":
+      basket = [];
       return basket;
     default:
       return basket;

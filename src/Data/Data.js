@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 const projects = [
   {
     distinct: uuidv4(),
-    photo: require("../Asset/Imgs/img2.png"),
+    photo:
+      "https://res.cloudinary.com/dtm7bncpr/image/upload/v1694631573/Arthub/dpo6aiwxh3h2ajowowvl.jpg",
     text: "Despair",
     price: 5500,
     id: 1,
@@ -17,7 +18,8 @@ const projects = [
 
   {
     distinct: uuidv4(),
-    photo: require("../Asset/Imgs/img4.png"),
+    photo:
+      "https://res.cloudinary.com/dtm7bncpr/image/upload/v1694631573/Arthub/a1phfkcprykle5fgcq3p.jpg",
     text: "Perspective",
     price: 5900,
     id: 2,
@@ -30,7 +32,8 @@ const projects = [
   },
   {
     distinct: uuidv4(),
-    photo: require("../Asset/Imgs/img5.png"),
+    photo:
+      "https://res.cloudinary.com/dtm7bncpr/image/upload/v1694631572/Arthub/nx8bter0mzk8elrbspsi.jpg",
     text: "Color",
     price: 9600,
     id: 3,
@@ -44,7 +47,8 @@ const projects = [
 
   {
     distinct: uuidv4(),
-    photo: require("../Asset/Imgs/img1.png"),
+    photo:
+      "https://res.cloudinary.com/dtm7bncpr/image/upload/v1694631572/Arthub/rnthog2m73hmc2tzzden.jpg",
     text: "Dark",
     price: 5000,
     id: 4,
@@ -57,7 +61,8 @@ const projects = [
   },
   {
     distinct: uuidv4(),
-    photo: require("../Asset/Imgs/img3.png"),
+    photo:
+      "https://res.cloudinary.com/dtm7bncpr/image/upload/v1694631573/Arthub/i86oljmlrlqiteuwkxff.jpg",
     text: "Harm",
     price: 7000,
     id: 5,

@@ -1,81 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Cart.css";
-import data from "../../Data/Data.js";
+// import data from "../../Data/Data.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Load from "../../Components/Loader/Load";
 import {
   AddToCart,
   DeleteFromCart,
-  SetBasket,
   RemoveFromCart,
 } from "../../Global/Actions/Index";
 import Subtotal from "./Subtotal";
-import { useCookies } from "react-cookie";
+import { useContext } from "react";
+import { MyContext } from "../../MyContext";
+import axios from "axios";
 
 function Cart() {
   document.title = "Cart";
+  let Basket = useSelector((state) => state.controlBasket);
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(["CART"]);
-  var cartcookies = cookies["CART"];
-  // function getCookies() {
-  //   var basketcurrent = [];
-  //   if (cartcookies !== undefined && cartcookies.length > 0) {
-  //     var i, j;
-  //     for (i = 0; i < cartcookies.length; i++) {
-  //       for (j = 0; j < data.length; j++) {
-  //         if (cartcookies[i].id === data[j].id) {
-  //           basketcurrent.push({
-  //             photo: data[j].photo,
-  //             text: data[j].text,
-  //             price: data[j].price,
-  //             id: data[j].id,
-  //             cartprice: cartcookies[i].count * data[j].price,
-  //             count: cartcookies[i].count,
-  //           });
-  //         }
-  //       }
-  //     }
-  //   }
-  //   dispatch(SetBasket(basketcurrent));
-  // }
-  // getCookies();
-  var Basket = useSelector((state) => state.controlBasket);
+  const { user, notify } = useContext(MyContext);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (user) {
+      addtocart();
+    }
+  }, [Basket]);
+  const addtocart = async (e) => {
+    setLoading(true);
+    const { email } = user;
+    axios
+      .put("/updatecart", {
+        email,
+        cart: Basket,
+      })
+      .then((res) => {
+        setLoading(false);
+        if (res.status === 202) {
+          notify("error", "Unable to do operation !");
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        notify("error", "Server error !");
+      });
+  };
 
-  function RemoveCartItemHandler(id) {
-    cartcookies = cartcookies.filter((e) => e.id !== id);
-    setCookie("CART", cartcookies, {
-      path: "/",
-      expires: new Date(new Date().getTime() + 500000 * 1000),
-    });
-  }
-  function RemoveCartHandler(id) {
-    cartcookies.map((e) => {
-      if (e.id === id && e.count > 1) {
-        e.count--;
-      }
-      return 0;
-    });
-    setCookie("CART", cartcookies, {
-      path: "/",
-      expires: new Date(new Date().getTime() + 500000 * 1000),
-    });
-  }
-
-  function AddCartHandler(id, count) {
-    cartcookies.map((e) => {
-      if (e.id === id) {
-        e.count++;
-      }
-      return 0;
-    });
-    setCookie("CART", cartcookies, {
-      path: "/",
-      expires: new Date(new Date().getTime() + 500000 * 1000),
-    });
-  }
   if (Basket.length > 0) {
     return (
       <>
+        {loading ? <Load /> : <></>}
         <div className="cart_main">
           <p className="cart_heading">SHOPPING CART</p>
           {Basket.map((e) => (
@@ -98,7 +71,7 @@ function Cart() {
                     <div
                       onClick={() => {
                         dispatch(DeleteFromCart(e.id));
-                        RemoveCartHandler(e.id);
+                        // addtocart();
                       }}
                       className={
                         e.count === 1
@@ -123,7 +96,7 @@ function Cart() {
                             e.count
                           )
                         );
-                        AddCartHandler(e.id, e.count);
+                        // addtocart();
                       }}
                       className="cart_button cart_manuplators"
                     >
@@ -138,7 +111,7 @@ function Cart() {
                       className="cart_button"
                       onClick={() => {
                         dispatch(RemoveFromCart(e.id));
-                        RemoveCartItemHandler(e.id);
+                        // addtocart();
                       }}
                     >
                       &#10005;

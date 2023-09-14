@@ -35,7 +35,7 @@ function Gettotal() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "1rem",
+        // padding: "1rem",
         paddingTop: "1.5rem",
         // marginBottom: "1rem",
       }}
