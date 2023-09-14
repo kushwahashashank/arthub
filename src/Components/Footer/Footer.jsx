@@ -21,7 +21,7 @@ function Footer() {
     setLoading(true);
 
     axios
-      .get("/isauthenticated")
+      .get("https://arthubbackend-production.up.railway.app/isauthenticated")
       .then((res) => {
         setLoading(false);
         if (res.status === 200) {

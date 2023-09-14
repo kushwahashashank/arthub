@@ -7,18 +7,8 @@ import { useContext } from "react";
 import { MyContext } from "../../MyContext";
 function Home() {
   document.title = "Arthub";
-
-  // function getCookies() {
-  // setLoading(true);
-  // if (!cartcookies) {
-  // } else {
-  //   setLoading(false);
-  // }
-  // }
-  // getCookies();
   return (
     <>
-      
       <div id="home" className="homepage">
         <div className="qoute">
           " The aim of art is not to represent the outward appearance of things,

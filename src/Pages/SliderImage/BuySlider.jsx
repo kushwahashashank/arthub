@@ -36,7 +36,7 @@ export default function Slider() {
     console.log("cart updated");
     const { email } = user;
     axios
-      .put("/updatecart", {
+      .put("https://arthubbackend-production.up.railway.app/updatecart", {
         email,
         cart: Basket,
       })

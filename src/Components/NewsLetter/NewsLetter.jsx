@@ -37,7 +37,7 @@ function NewsLetter() {
     const { name, email } = newsletter;
     if (form_Validation()) {
       axios
-        .post("/newssignin", {
+        .post("https://arthubbackend-production.up.railway.app/newssignin", {
           name,
           email,
         })

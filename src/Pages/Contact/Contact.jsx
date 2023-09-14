@@ -48,7 +48,7 @@ export default function Contact() {
     const { name, email, message } = user;
     if (form_Validation()) {
       axios
-        .post("/sendmessage", {
+        .post("https://arthubbackend-production.up.railway.app/sendmessage", {
           name,
           email,
           message,

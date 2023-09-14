@@ -68,10 +68,10 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     const { name, email, password } = userdata;
-    let cart=[];
+    let cart = [];
     if (form_Validation()) {
       axios
-        .post("/register", {
+        .post("https://arthubbackend-production.up.railway.app/register", {
           name,
           email,
           password,

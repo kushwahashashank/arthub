@@ -29,7 +29,7 @@ function Cart() {
     setLoading(true);
     const { email } = user;
     axios
-      .put("/updatecart", {
+      .put("https://arthubbackend-production.up.railway.app/updatecart", {
         email,
         cart: Basket,
       })

@@ -54,7 +54,7 @@ export default function Login() {
     const { email, password } = data;
     if (form_Validation()) {
       axios
-        .post("/login", {
+        .post("https://arthubbackend-production.up.railway.app/login", {
           email,
           password,
         })

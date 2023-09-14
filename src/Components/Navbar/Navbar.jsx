@@ -39,7 +39,7 @@ export default function Navbar() {
   const LogOut = async (e) => {
     setLoading(true);
     axios
-      .get("/Logout")
+      .get("https://arthubbackend-production.up.railway.app/Logout")
       .then((res) => {
         setLoading(false);
         if (res.status === 200) {
