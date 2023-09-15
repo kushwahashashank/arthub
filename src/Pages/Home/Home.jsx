@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Home.css";
-import axios from "axios";
+ 
 import projects from "../../Data/Data";
-import Load from "../../Components/Loader/Load";
-import { useContext } from "react";
-import { MyContext } from "../../MyContext";
+
 function Home() {
   document.title = "Arthub";
   return (

@@ -6,10 +6,12 @@ import "./Register.css";
 import Load from "../../Components/Loader/Load";
 import { useContext } from "react";
 import { MyContext } from "../../MyContext";
+import { useCookies } from "react-cookie";
 export default function Register() {
   document.title = "Register";
   const { setUser, notify } = useContext(MyContext);
   let navigate = useNavigate();
+  const [, setCookie] = useCookies(["token"]);
   const [errormessage, setErrormessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [userdata, setUserdata] = useState({
@@ -80,9 +82,11 @@ export default function Register() {
         .then((res) => {
           if (res.status === 201) {
             setUser({
-              name: res.data.name,
-              email: res.data.email,
+              name: res.data.user.name,
+              email: res.data.user.email,
+              cart: res.data.user.cart,
             });
+            setCookie("token", res.data.token);
             setLoading(false);
             navigate("/");
             notify("success", "Registered successfully !");

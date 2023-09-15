@@ -9,15 +9,17 @@ import { Link } from "react-router-dom";
 import { getbasketSize } from "../../Global/Reducers/Cart";
 import { useContext } from "react";
 import { MyContext } from "../../MyContext";
-import axios from "axios";
 import Load from "../Loader/Load";
 import { UnsetCart } from "../../Global/Actions/Index";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ ,,removeCookie] = useCookies(["token"]);
   const { user, setUser, notify } = useContext(MyContext);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const Basket = useSelector((state) => state.controlBasket);
   const [active, setActive] = useState("home");
   const [shownav, setNav] = useState(false);
@@ -36,23 +38,12 @@ export default function Navbar() {
 
   //Logout Function
 
-  const LogOut = async (e) => {
-    setLoading(true);
-    axios
-      .get("https://arthubbackend-production.up.railway.app/Logout")
-      .then((res) => {
-        setLoading(false);
-        if (res.status === 200) {
-          setUser(null);
-          dispatch(UnsetCart());
-          notify("success", "User logged out !");
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        notify("error", "Error logging out !");
-      });
+  const LogOut = () => {
+    removeCookie("token");
+    setUser(null);
+    dispatch(UnsetCart());
+    notify("success", "User logged out !");
+    navigate("/");
   };
 
   return (

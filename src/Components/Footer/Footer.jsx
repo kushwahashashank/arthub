@@ -6,40 +6,49 @@ import "react-tooltip/dist/react-tooltip.css";
 import { SiGmail } from "react-icons/si";
 import { BsTwitter } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { useCookies } from "react-cookie";
 import { SetBasket } from "../../Global/Actions/Index";
-import projects from "../../Data/Data";
 import { MyContext } from "../../MyContext";
 import axios from "axios";
 import Load from "../Loader/Load";
+import { useCookies } from "react-cookie";
 function Footer() {
   // user handling
+  const [cookies] = useCookies(["token"]);
   const dispatch = useDispatch();
   const { setUser, notify } = useContext(MyContext);
   const [loading, setLoading] = useState(false);
-  const isAuthenticated = async (e) => {
-    setLoading(true);
 
-    axios
-      .get("https://arthubbackend-production.up.railway.app/isauthenticated")
-      .then((res) => {
-        setLoading(false);
-        if (res.status === 200) {
-          setUser({
-            name: res.data.name,
-            email: res.data.email,
-            cart: res.data.cart,
-          });
-          dispatch(SetBasket(res.data.cart));
-        }
-      })
-      .catch(() => {
-        setLoading(false);
-        notify("error", "Server error !");
-      });
+  const isAuthenticated = async (e) => {
+    let temp = JSON.stringify(cookies.token);
+    console.log(temp);
+    if (temp) {
+      setLoading(true);
+      axios
+        .post(
+          "https://arthubbackend-production.up.railway.app/isauthenticated",
+          {
+            token: temp,
+          }
+        )
+        .then((res) => {
+          setLoading(false);
+          if (res.status === 200) {
+            setUser({
+              name: res.data.name,
+              email: res.data.email,
+              cart: res.data.cart,
+            });
+            dispatch(SetBasket(res.data.cart));
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+          notify("error", "Server error !");
+        });
+    }
   };
+
   useEffect(() => {
-    // console.log("Abhishek");
     isAuthenticated();
   }, []);
   // Cart maupalation

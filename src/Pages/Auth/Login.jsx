@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { MyContext } from "../../MyContext";
 import { useDispatch } from "react-redux";
 import { SetBasket } from "../../Global/Actions/Index";
+import { useCookies } from "react-cookie";
 export default function Login() {
   document.title = "Login";
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [, setCookie] = useCookies(["token"]);
   const [loading, setLoading] = useState(false);
   const [errormessage, setErrormessage] = useState("");
   function delay(ms) {
@@ -60,31 +62,25 @@ export default function Login() {
         })
         .then((res) => {
           setLoading(false);
+          console.log(res);
           if (res.status === 200) {
             setUser({
-              name: res.data.name,
-              email: res.data.email,
-              cart: res.data.cart,
+              name: res.data.user.name,
+              email: res.data.user.email,
+              cart: res.data.user.cart,
             });
-            dispatch(SetBasket(res.data.cart));
+            setCookie("token", res.data.token);
+            dispatch(SetBasket(res.data.user.cart));
             navigate("/");
             notify("success", "User logged in !");
           }
           if (res.status === 203) {
-            setUser({
-              name: res.data.name,
-              email: res.data.email,
-            });
             setErrormessage("Invalid credentials");
             delay(3000).then(function () {
               setErrormessage("");
             });
           }
           if (res.status === 202) {
-            setUser({
-              name: res.data.name,
-              email: res.data.email,
-            });
             setErrormessage("User does not exists");
             delay(3000).then(function () {
               setErrormessage("");

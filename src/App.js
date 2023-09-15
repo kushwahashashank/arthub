@@ -57,7 +57,6 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/error" element={<ErrorMessage />} /> */}
               <Route path="/slider/:target" element={<Slider />} />
               <Route path="/buyslider/:target" element={<BuySlider />} />
               <Route path="*" element={<Pagenotfound />} />
