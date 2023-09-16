@@ -72,7 +72,7 @@ export default function Login() {
             setCookie("token", res.data.token);
             dispatch(SetBasket(res.data.user.cart));
             navigate("/");
-            notify("success", "User logged in !");
+            notify("success", "Logged in successfully !");
           }
           if (res.status === 203) {
             setErrormessage("Invalid credentials");

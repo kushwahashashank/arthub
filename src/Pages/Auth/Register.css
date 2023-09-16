@@ -100,6 +100,7 @@
   top: 30px;
   right: 30px;
   font-size: 1.3rem;
+  cursor: pointer;
 }
 @media (max-width: 1200px) {
   .Form_register {

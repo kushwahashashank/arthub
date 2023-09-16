@@ -17,7 +17,7 @@ import { useCookies } from "react-cookie";
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ ,,removeCookie] = useCookies(["token"]);
+  const [, , removeCookie] = useCookies(["token"]);
   const { user, setUser, notify } = useContext(MyContext);
   const [loading] = useState(false);
   const Basket = useSelector((state) => state.controlBasket);
@@ -42,7 +42,7 @@ export default function Navbar() {
     removeCookie("token");
     setUser(null);
     dispatch(UnsetCart());
-    notify("success", "User logged out !");
+    notify("success", "Logged out successfully!");
     navigate("/");
   };
 

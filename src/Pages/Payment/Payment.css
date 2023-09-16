@@ -14,6 +14,7 @@
   z-index: 102;
   left: 2rem;
   top: 1.5rem;
+  cursor: pointer;
 }
 .checkout {
   position: absolute;

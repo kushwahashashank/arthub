@@ -70,8 +70,8 @@ function Cart() {
                   >
                     <div
                       onClick={() => {
-                        dispatch(DeleteFromCart(e.id));
-                        // addtocart();
+                        if(e.count>1)
+                        {dispatch(DeleteFromCart(e.id));}
                       }}
                       className={
                         e.count === 1
@@ -96,7 +96,6 @@ function Cart() {
                             e.count
                           )
                         );
-                        // addtocart();
                       }}
                       className="cart_button cart_manuplators"
                     >
