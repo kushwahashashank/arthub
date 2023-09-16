@@ -17,7 +17,7 @@ This website is crafted using cutting-edge technologies, featuring React, CSS, a
 
 ## PROJECT OVERVIEW
 
-Hosted link of the project.
+Hosted link to the project.
 
 [Arthub](https://aarthub.netlify.app/)
 
