@@ -19,7 +19,7 @@ This website is crafted using cutting-edge technologies, featuring React, CSS, a
 
 Hosted link of the project.
 
-[Arthub](https://github.com/facebook/create-react-app)
+[Arthub](https://aarthub.netlify.app/)
 
 
 **Screesshots:**
