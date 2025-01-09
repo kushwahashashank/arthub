@@ -73,7 +73,7 @@ export default function Register() {
     let cart = [];
     if (form_Validation()) {
       axios
-        .post("https://arthubbackend-production.up.railway.app/register", {
+        .post("https://arthub-backend-cdai.onrender.com/register", {
           name,
           email,
           password,
